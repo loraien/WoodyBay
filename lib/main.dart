@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'ItemDetails.dart';
 
 void main() {
   runApp(MyApp());
@@ -149,8 +150,15 @@ class MyApp extends StatelessWidget {
                             SizedBox(
                               width: 10,
                             ),
-                            ColumnBuildRow("assets/pix/seater1.png",
-                                "Kaylee 1 Seater Sofa", "₹ 59,999"),
+                            GestureDetector(
+                              onTap:(){
+                               Navigator.of(context).push(MaterialPageRoute(builder:(context){
+                                 return ItemDetails();
+                               }));
+                              },
+                              child: ColumnBuildRow("assets/pix/seater1.png",
+                                  "Kaylee 1 Seater Sofa", "₹ 59,999"),
+                            ),
                             ColumnBuildRow("assets/pix/seater2.png",
                                 "Hugo 2 Seater Sofa", "₹ 62,999"),
                             ColumnBuildRow("assets/pix/seater3.png",
