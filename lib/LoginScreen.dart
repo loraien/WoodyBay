@@ -167,28 +167,29 @@ Widget buildLoginBtn() {
     padding: EdgeInsets.symmetric(vertical: 25),
     width: double.infinity,
     child: ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        primary: Colors.white,
+      ),
+      child: Text(
+        'LOGIN',
+        style: TextStyle(
+          color: Color(0xffa1887f),
+          fontSize: 18,
+          fontWeight: FontWeight.bold
+        ),
+      ),      
       onPressed: () {
         {
         Navigator.of(context).push(MaterialPageRoute(builder: (Centext){
           return logged();
       }));
-      elevation: 5;
-      padding: EdgeInsets.all(15);
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15)
-      );
-      color: Colors.white;
-      child: Text(
-        'LOGIN',
-        style: TextStyle(
-          color: Colors.black26,
-          fontSize: 18,
-          fontWeight: FontWeight.bold
-        ),
-      );
-    }}, child: null,)
-  );
-}
+        }
+    }));
+  }
+      
+      
+      
+   
 
   @override
   Widget build(BuildContext context) {
