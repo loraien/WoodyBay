@@ -1,10 +1,11 @@
 import 'dart:ui';
-
+import 'LoginScreen.dart'; 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:woodybay/LoginScreen.dart';
 import 'ItemDetails.dart';
 
 void main() {
@@ -36,16 +37,7 @@ class MyApp extends StatelessWidget {
             ),
             ),
           
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ContainerBuildNavBottom(Icons.person_add_alt_outlined),
-                ContainerBuildNavBottom(Icons.add_shopping_cart_outlined),
-                ContainerBuildNavBottom(Icons.home_rounded,isSelected: true),
-                ContainerBuildNavBottom(Icons.favorite_border_outlined),
-                ContainerBuildNavBottom(Icons.settings),
-              ],
-            ),
+            child: human()
           ),
         ),
         appBar: AppBar(
@@ -111,11 +103,12 @@ class MyApp extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                decoration: BoxDecoration(
+                decoration: BoxDecoration(                    
                     color: Colors.grey.shade100,
                     borderRadius:  BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
+              
                     ),
                     boxShadow: [
                       BoxShadow(
@@ -142,34 +135,10 @@ class MyApp extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 5),
-                      SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 10,
-                            ),
-                            GestureDetector(
-                              onTap:(){
-                               Navigator.of(context).push(MaterialPageRoute(builder:(context){
-                                 return ItemDetails();
-                               }));
-                              },
-                              child: ColumnBuildRow("assets/pix/seater1.png",
-                                  "Kaylee 1 Seater Sofa", "₹ 59,999"),
-                            ),
-                            ColumnBuildRow("assets/pix/seater2.png",
-                                "Hugo 2 Seater Sofa", "₹ 62,999"),
-                            ColumnBuildRow("assets/pix/seater3.png",
-                                "Belem 3 Seater Sofa", "₹ 65,799"),
-                          ],
-                        ),
-                      ),
+                      deta(),
                       SizedBox(
                         height: 8,
                       ),
-                      LineBar(),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
@@ -241,7 +210,7 @@ class MyApp extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         physics: BouncingScrollPhysics(),
                         child: Row(
-                          children: [
+                            children: [
                             ContainerBuildBottom("assets/pix/offer1.png"),
                             ContainerBuildBottom("assets/pix/offer2.png"),
                             ContainerBuildBottom("assets/pix/offer3.jpeg"),
@@ -259,20 +228,7 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  Container ContainerBuildNavBottom(IconData icon, {isSelected = false}) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: isSelected?[
-          BoxShadow(color: Colors.brown.shade200,blurRadius: 10,spreadRadius: 1)]
-          : [],
-        color: isSelected? Colors.brown.shade800 : Colors.grey.shade50,
-        shape: BoxShape.circle,
-      ),
-      height: 50,
-      width: 50,
-      child: Icon(icon,color: isSelected? Colors.grey.shade50: Colors.brown.shade900,),
-    );
-  }
+  
 
   Container ContainerBuildBottom(String img) {
     return Container(
@@ -290,37 +246,7 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  Padding ColumnBuildRow(String img, String title, String price) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Container(
-            height: 180,
-            width: 300,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image.asset(img, fit: BoxFit.cover),
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            title,
-            style: TextStyle(
-                color: Colors.brown.shade900,
-                fontSize: 15,
-                fontWeight: FontWeight.bold),
-          ),
-          Text(
-            price,
-            style: TextStyle(color: Colors.brown.shade900, fontSize: 15),
-          )
-        ],
-      ),
-    );
-  }
+  
 
   Column ColumnBuildTop(String text, {bool isSelected = false}) {
     return Column(
@@ -372,30 +298,102 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class LineBar extends StatelessWidget {
+
+class human extends StatelessWidget {
+  const human({ Key? key }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.height);
+    return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [ 
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (Context){
+                      return LoginScreen();
+                    }));
+                  },
+                  child: ContainerBuildNavBottom(Icons.person_add_alt_outlined)
+                  ),
+                ContainerBuildNavBottom(Icons.add_shopping_cart_outlined),
+                ContainerBuildNavBottom(Icons.home_rounded,isSelected: true),
+                ContainerBuildNavBottom(Icons.favorite_border_outlined),
+                ContainerBuildNavBottom(Icons.settings),
+              ],
+            );
+  }
+  Container ContainerBuildNavBottom(IconData icon, {isSelected = false}) {
     return Container(
-      margin: EdgeInsets.only(left: 18),
-      height: 5,
-      width: MediaQuery.of(context).size.width,
-      alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
-        color: Colors.brown.shade200,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          bottomLeft: Radius.circular(10),
-        ),
+        boxShadow: isSelected?[
+          BoxShadow(color: Colors.brown.shade200,blurRadius: 10,spreadRadius: 1)]
+          : [],
+        color: isSelected? Colors.brown.shade800 : Colors.grey.shade50,
+        shape: BoxShape.circle,
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.brown.shade900,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
+      height: 50,
+      width: 50,
+      child: Icon(icon,color: isSelected? Colors.grey.shade50: Colors.brown.shade900,),
+    );
+  }
+}
+class deta extends StatelessWidget {
+  const deta({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 10,
+                              
+                            ),
+                            ColumnBuildRow("assets/pix/seater1.png","Kaylee 1 Seater Sofa", "₹ 59,999", context),
+                            ColumnBuildRow("assets/pix/seater2.png","Hugo 2 Seater Sofa", "₹ 62,999", context),
+                            ColumnBuildRow("assets/pix/seater3.png","Belem 3 Seater Sofa", "₹ 65,799", context),
+                          ],
+                        ),
+                      );
+  }
+  GestureDetector ColumnBuildRow(
+      String img, String title, String price, BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return ItemDetails(img: img,title: title,price: price,context: context);
+        }));
+      },
+          child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Container(
+              height: 180, 
+              width: 300,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.asset(img, fit: BoxFit.cover),
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              title,
+              style: TextStyle(
+                  color: Colors.brown.shade900,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold),
+            ),
+            Text(
+              price,
+              style: TextStyle(color: Colors.brown.shade900, fontSize: 15),
+            )
+          ],
         ),
-        height: 5,
-        width: 100,
       ),
     );
   }
